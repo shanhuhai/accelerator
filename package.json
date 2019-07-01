@@ -10,7 +10,9 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@babel/preset-env": "^7.4.5",
         "axios": "^0.19",
+        "babel-plugin-component": "^1.1.1",
         "bootstrap": "^4.3.1",
         "bootstrap-sass": "^3.4.1",
         "cross-env": "^5.1",
@@ -27,6 +29,7 @@
     },
     "dependencies": {
         "@riophae/vue-treeselect": "0.0.38",
+        "element-ui": "^2.10.0",
         "npm": "^6.9.0"
     }
 }

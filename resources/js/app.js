@@ -31,6 +31,13 @@ window.Vue = require('vue');
 import 'vue-easytable/libs/themes-base/index.css'
 
 import {VTable,VPagination} from 'vue-easytable'
+import { Button, Select,Dialog,Table,TableColumn} from 'element-ui';
+
+Vue.component(Button.name, Button);
+Vue.component(Select.name, Select);
+Vue.component(Dialog.name, Dialog);
+Vue.component(Table.name, Table);
+Vue.component(Table.name, TableColumn);
 
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
@@ -38,6 +45,9 @@ Vue.component(VPagination.name, VPagination)
 import TableOperation  from './components/TableOperation.vue'
 
 Vue.component(TableOperation.name, TableOperation)
+
+
+
 
 const app = new Vue({
     el: '#app',
@@ -72,7 +82,7 @@ const app = new Vue({
             ]
         }
     },
-    components: {VTable,VPagination, TableOperation},
+    components: {VTable,VPagination, TableOperation, Button, Select, Dialog, Table,TableColumn},
     methods: {
         request() {
             this.isLoading = true;

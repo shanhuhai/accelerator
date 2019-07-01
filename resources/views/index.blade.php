@@ -12,8 +12,8 @@
 
 <div id="app" style="text-align: center">
     <h1 style="margin: 10px">需求管理</h1>
-    <div id="app">
-        <div style="border:2px dotted orange;width: 1000px;">
+    <div id="app" >
+        <div style="margin: 0 auto;border:2px dotted orange;width: 1000px;">
             <v-table
 
                     :columns="columns"
@@ -33,6 +33,8 @@
         <template>
             <v-pagination :total="totalMissions" :page-size="pageSize" @page-change="pageChange1" @page-size-change="pageSizeChange1"></v-pagination>
         </template>
+
+
     </div>
 </div>
 
