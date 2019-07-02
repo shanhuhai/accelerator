@@ -1854,14 +1854,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'table-operation',
   props: {
@@ -1875,50 +1867,21 @@ __webpack_require__.r(__webpack_exports__);
       type: Number
     }
   },
-  data: function data() {
-    return {
-      gridData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }],
-      dialogTableVisible: false
-    };
-  },
   methods: {
-    update: function update() {
-      // 参数根据业务场景随意构造
-      var params = {
-        type: 'edit',
-        index: this.index,
-        rowData: this.rowData
-      };
-      this.$emit('on-custom-comp', params);
-    },
     deleteRow: function deleteRow() {
       // 参数根据业务场景随意构造
       var params = {
         type: 'delete',
-        index: this.index
+        index: this.index,
+        rowData: this.rowData
       };
       this.$emit('on-custom-comp', params);
     },
     showDivision: function showDivision() {
       var params = {
         type: 'showDivision',
-        index: this.index
+        index: this.index,
+        rowData: this.rowData
       };
       this.$emit('on-custom-comp', params);
     }
@@ -61333,106 +61296,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("span", [
-        _c(
-          "a",
-          {
-            staticStyle: { color: "green" },
-            attrs: { href: "" },
-            on: {
-              click: function($event) {
-                $event.stopPropagation()
-                $event.preventDefault()
-                return _vm.showDivision(_vm.rowData, _vm.index)
-              }
-            }
-          },
-          [_vm._v("排期")]
-        ),
-        _vm._v(" \n    "),
-        _c(
-          "a",
-          {
-            staticStyle: { color: "green" },
-            attrs: { href: "" },
-            on: {
-              click: function($event) {
-                $event.stopPropagation()
-                $event.preventDefault()
-                return _vm.update(_vm.rowData, _vm.index)
-              }
-            }
-          },
-          [_vm._v("编辑")]
-        ),
-        _vm._v(" \n    "),
-        _c(
-          "a",
-          {
-            attrs: { href: "" },
-            on: {
-              click: function($event) {
-                $event.stopPropagation()
-                $event.preventDefault()
-                return _vm.deleteRow(_vm.rowData, _vm.index)
-              }
-            }
-          },
-          [_vm._v("删除")]
-        )
-      ]),
-      _vm._v(" "),
+  return _c("div", [
+    _c("span", [
       _c(
-        "el-button",
+        "a",
         {
-          attrs: { type: "text" },
+          staticStyle: { color: "green" },
+          attrs: { href: "" },
           on: {
             click: function($event) {
-              _vm.dialogTableVisible = true
+              $event.stopPropagation()
+              $event.preventDefault()
+              return _vm.showDivision(_vm.rowData, _vm.index)
             }
           }
         },
-        [_vm._v("打开嵌套表格的 Dialog")]
+        [_vm._v("排期")]
       ),
-      _vm._v(" "),
+      _vm._v(" \n    "),
       _c(
-        "el-dialog",
+        "a",
         {
-          attrs: { title: "收货地址", visible: _vm.dialogTableVisible },
+          attrs: { href: "" },
           on: {
-            "update:visible": function($event) {
-              _vm.dialogTableVisible = $event
+            click: function($event) {
+              $event.stopPropagation()
+              $event.preventDefault()
+              return _vm.deleteRow(_vm.rowData, _vm.index)
             }
           }
         },
-        [
-          _c(
-            "el-table",
-            { attrs: { data: _vm.gridData } },
-            [
-              _c("el-table-column", {
-                attrs: { property: "date", label: "日期", width: "150" }
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { property: "name", label: "姓名", width: "200" }
-              }),
-              _vm._v(" "),
-              _c("el-table-column", {
-                attrs: { property: "address", label: "地址" }
-              })
-            ],
-            1
-          )
-        ],
-        1
+        [_vm._v("删除")]
       )
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -73672,6 +73569,64 @@ var app = new Vue({
   data: function data() {
     return {
       tableData: [],
+      divisionData: [],
+      //弹窗数据
+      divisionDataColumns: [{
+        field: 'role',
+        title: '角色',
+        width: 100,
+        titleAlign: 'center',
+        columnAlign: 'left'
+      }, {
+        field: 'assigned_to',
+        title: '负责人',
+        width: 100,
+        titleAlign: 'center',
+        columnAlign: 'left'
+      }, {
+        field: 'progress',
+        title: '进度',
+        width: 100,
+        titleAlign: 'center',
+        columnAlign: 'left'
+      }, {
+        field: 'deadline',
+        title: '截止时间',
+        width: 100,
+        titleAlign: 'center',
+        columnAlign: 'left'
+      }, {
+        field: 'actual_time',
+        title: '实际时间',
+        width: 100,
+        titleAlign: 'center',
+        columnAlign: 'left'
+      }, {
+        field: 'delay',
+        title: '延期时间',
+        width: 100,
+        titleAlign: 'center',
+        columnAlign: 'left'
+      }, {
+        field: 'delay_note',
+        title: '延期备注',
+        width: 100,
+        titleAlign: 'center',
+        columnAlign: 'left'
+      }, {
+        field: 'man_day',
+        title: '工时评估',
+        width: 100,
+        titleAlign: 'center',
+        columnAlign: 'center'
+      }, {
+        field: 'score',
+        title: '评分',
+        width: 100,
+        titleAlign: 'center',
+        columnAlign: 'center'
+      }],
+      dialogTableVisible: false,
       totalMissions: 0,
       page: 1,
       pageSize: 20,
@@ -73727,22 +73682,19 @@ var app = new Vue({
         titleAlign: 'center',
         columnAlign: 'left'
       }, {
+        field: 'note',
+        title: '备注',
+        width: 200,
+        titleAlign: 'center',
+        columnAlign: 'left'
+      }, {
         field: 'custome-adv',
         title: '操作',
         width: 50,
         titleAlign: 'center',
         columnAlign: 'center',
         componentName: _components_TableOperation_vue__WEBPACK_IMPORTED_MODULE_13__["default"].name,
-        isResize: true //       {field: 'man_day', title: '工时评估', titleAlign: 'center',columnAlign:'left'},
-        //     {field: 'score', title: '分值', titleAlign: 'center',columnAlign:'left'},
-        //     {field: 'deadline', title: '结束时间', titleAlign: 'center',columnAlign:'left'},
-        //    {field: 'actual_time', title: '实际完成时间', titleAlign: 'center',columnAlign:'left'},
-        //   {field: 'delay', title: '延期时间', titleAlign: 'center',columnAlign:'left'},
-        //    {field: 'delay_note', title: '延期原型', titleAlign: 'center',columnAlign:'left'},
-        //     {field: 'progress', title: '进度', titleAlign: 'center',columnAlign:'left'},
-        //    {field: 'principal_id', title: '开发负责人', titleAlign: 'center',columnAlign:'left'},
-        //       {field: 'review', title: '分值', titleAlign: 'center',columnAlign:'left'},
-
+        isResize: true
       }]
     };
   },
@@ -73768,15 +73720,41 @@ var app = new Vue({
         _this.totalMissions = json.data.total;
       });
     },
+    requestDel: function requestDel(missionId) {
+      var _this2 = this;
+
+      fetch(app_url + '/api/missions/' + missionId, {
+        method: 'DELETE'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.tableData = json.data.data;
+        _this2.totalMissions = json.data.total;
+      });
+    },
+    requestMissionDivision: function requestMissionDivision(missionId) {
+      var _this3 = this;
+
+      fetch(app_url + '/api/mission/' + missionId + '/divisions').then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this3.divisionData = json.data;
+        console.log(_this3.divisionData);
+      });
+    },
     customCompFunc: function customCompFunc(params) {
       console.log(params);
 
       if (params.type === 'delete') {
         // do delete operation
         this.$delete(this.tableData, params.index);
+        this.requestDel(params.rowData['id']);
       } else if (params.type === 'edit') {
         // do edit operation
         alert("\u884C\u53F7\uFF1A".concat(params.index, " \u4EFB\u52A1\u6807\u9898\uFF1A").concat(params.rowData['title']));
+      } else if (params.type === 'showDivision') {
+        this.dialogTableVisible = true;
+        this.requestMissionDivision(params.rowData['id']);
       }
     },
     selectALL: function selectALL(selection) {

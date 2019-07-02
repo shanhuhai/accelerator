@@ -31,9 +31,11 @@ class CreateMissionDivisionsTable extends Migration
             $table->decimal('progress')->comment('进度');
             //岗位
             $table->enum('role',['前端', '后端', '安卓', 'IOS','UI','产品经理'])->comment('岗位');
-            $table->unsignedBigInteger('principal_id')->comment('任务负责人id');
+            $table->unsignedBigInteger('assigned_to')->comment('任务负责人id');
 
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

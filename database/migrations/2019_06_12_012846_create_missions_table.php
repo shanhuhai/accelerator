@@ -27,6 +27,7 @@ class CreateMissionsTable extends Migration
             //备注
             $table->text('note')->comment('备注');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

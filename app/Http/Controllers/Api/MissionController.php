@@ -22,11 +22,19 @@ class MissionController extends Controller
     public function getMissionDivisions($id) {
         $id = $id ? $id :1;
 
-        $divisions = Mission::find($id)->divisions;
+        $divisions = Mission::find($id)->divisions()
+            ->get(['man_day', 'score', 'deadline', 'actual_time', 'delay','delay_note','progress', 'role','assigned_to']);
 
         return [
             'code'=>0,
             'data'=>$divisions,
         ];
+    }
+
+    public function deleteMission($id) {
+        //Todo 参数合法性验证
+        //Todo 支持事务
+        Mission::find($id)->divisions()->delete();
+        Mission::find($id)->delete();
     }
 }

@@ -54,6 +54,19 @@ const app = new Vue({
     data: function() {
         return {
             tableData: [],
+            divisionData: [],//弹窗数据
+            divisionDataColumns: [
+                {field: 'role', title: '角色',width: 100, titleAlign: 'center',columnAlign:'left'},
+                {field: 'assigned_to', title: '负责人', width: 100,titleAlign: 'center',columnAlign:'left'},
+                {field: 'progress', title: '进度',width: 100, titleAlign: 'center',columnAlign:'left'},
+                {field: 'deadline', title: '截止时间',width: 100, titleAlign: 'center',columnAlign:'left'},
+                {field: 'actual_time', title: '实际时间',width: 100, titleAlign: 'center',columnAlign:'left'},
+                {field: 'delay', title: '延期时间', width: 100,titleAlign: 'center',columnAlign:'left'},
+                {field: 'delay_note', title: '延期备注', width: 100,titleAlign: 'center',columnAlign:'left'},
+                {field: 'man_day', title:'工时评估', width: 100, titleAlign: 'center',columnAlign:'center'},
+                {field: 'score', title: '评分', width: 100, titleAlign: 'center',columnAlign:'center'},
+            ],
+            dialogTableVisible: false,
             totalMissions: 0,
             page:1,
             pageSize:20,
@@ -69,16 +82,8 @@ const app = new Vue({
                 {field: 'reviewer', title: '需求评审结果', width:100, titleAlign: 'center',columnAlign:'left'},
                 {field: 'tech_reviewer_id', title: '技术评审人', width:100, titleAlign: 'center',columnAlign:'left'},
                 {field: 'tech_review', title: '技术评审结果', width:100, titleAlign: 'center',columnAlign:'left'},
+                {field: 'note', title: '备注', width:200, titleAlign: 'center',columnAlign:'left'},
                 {field: 'custome-adv', title: '操作', width:50, titleAlign: 'center',columnAlign:'center', componentName:TableOperation.name, isResize: true}
-         //       {field: 'man_day', title: '工时评估', titleAlign: 'center',columnAlign:'left'},
-           //     {field: 'score', title: '分值', titleAlign: 'center',columnAlign:'left'},
-           //     {field: 'deadline', title: '结束时间', titleAlign: 'center',columnAlign:'left'},
-            //    {field: 'actual_time', title: '实际完成时间', titleAlign: 'center',columnAlign:'left'},
-             //   {field: 'delay', title: '延期时间', titleAlign: 'center',columnAlign:'left'},
-            //    {field: 'delay_note', title: '延期原型', titleAlign: 'center',columnAlign:'left'},
-           //     {field: 'progress', title: '进度', titleAlign: 'center',columnAlign:'left'},
-            //    {field: 'principal_id', title: '开发负责人', titleAlign: 'center',columnAlign:'left'},
-         //       {field: 'review', title: '分值', titleAlign: 'center',columnAlign:'left'},
             ]
         }
     },
@@ -86,7 +91,6 @@ const app = new Vue({
     methods: {
         request() {
             this.isLoading = true;
-
             fetch(app_url+'/api/missions?page='+this.page+'&pageSize='+this.pageSize).then(response => response.json()).then(
                 json => {
                  this.tableData = json.data.data;
@@ -94,12 +98,34 @@ const app = new Vue({
                 }
             );
         },
+        requestDel(missionId) {
+            fetch(app_url+'/api/missions/'+missionId, {
+                method: 'DELETE'
+            }).then(response => response.json()).then(
+                json => {
+                    this.tableData = json.data.data;
+                    this.totalMissions = json.data.total
+                }
+            );
+        },
+        requestMissionDivision(missionId){
+            fetch(app_url+'/api/mission/'+missionId+'/divisions').then(response => response.json()).then(
+                json => {
+                    this.divisionData = json.data;
+                    console.log(this.divisionData)
+                }
+            )
+        },
         customCompFunc(params){
             console.log(params);
             if (params.type === 'delete'){ // do delete operation
                 this.$delete(this.tableData,params.index);
+                this.requestDel(params.rowData['id'])
             }else if (params.type === 'edit'){ // do edit operation
                 alert(`行号：${params.index} 任务标题：${params.rowData['title']}`)
+            }else if (params.type === 'showDivision') {
+                this.dialogTableVisible = true;
+                this.requestMissionDivision(params.rowData['id']);
             }
         },
         selectALL(selection) {

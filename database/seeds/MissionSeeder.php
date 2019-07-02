@@ -33,7 +33,7 @@ class MissionSeeder extends Seeder
                     'delay' => mt_rand(0,1),
                     'delay_note' => '延期原因'.$i.'-'.$j,
                     'progress' => [0.8, 0.9, 1][mt_rand(0,2)],
-                    'principal_id' => 1,
+                    'assigned_to' => 1,
                     'role'=>['前端', '后端', '安卓', 'IOS','UI','产品经理'][mt_rand(0,5)]
                 ]);
             }

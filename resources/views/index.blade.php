@@ -12,10 +12,9 @@
 
 <div id="app" style="text-align: center">
     <h1 style="margin: 10px">需求管理</h1>
-    <div id="app" >
-        <div style="margin: 0 auto;border:2px dotted orange;width: 1000px;">
+    <div>
+        <div style="margin: 0 auto;width: 1000px;">
             <v-table
-
                     :columns="columns"
                     :table-data="tableData"
                     :show-vertical-border="true"
@@ -34,7 +33,14 @@
             <v-pagination :total="totalMissions" :page-size="pageSize" @page-change="pageChange1" @page-size-change="pageSizeChange1"></v-pagination>
         </template>
 
-
+        <el-dialog title="工作排期" :visible.sync="dialogTableVisible"   width="75%">
+            <v-table
+                    :width="1000"
+                    :columns="divisionDataColumns"
+                    :table-data="divisionData"
+                    :show-vertical-border="false"
+            ></v-table>
+        </el-dialog>
     </div>
 </div>
 
