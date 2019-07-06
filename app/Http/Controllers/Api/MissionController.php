@@ -11,8 +11,12 @@ class MissionController extends Controller
     //
 
     public function listMissions(Request $request) {
+        $where = [];
         $pageSize = $request->get('pageSize', 20);
-        $missions = Mission::paginate($pageSize);
+        $seasonId = $request->get('seasonId', 0);
+        if($seasonId) { $where['season_id'] = $seasonId;};
+
+        $missions = Mission::where($where)->paginate($pageSize);
         return [
             'code'=>0,
             'data'=>$missions

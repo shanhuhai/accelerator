@@ -11,7 +11,11 @@
 <body>
 
 <div id="app" style="text-align: center">
-    <h1 style="margin: 10px">需求管理</h1>
+    <h1 style="margin: 10px">任务管理</h1>
+    <div style="width: 200px;float:left">
+        <el-tree node-key="id" :data="projectData" :props="defaultProps" @node-click="handleNodeClick"
+        default-expand-all></el-tree>
+    </div>
     <div>
         <div style="margin: 0 auto;width: 1000px;">
             <v-table

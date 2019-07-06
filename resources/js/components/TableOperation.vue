@@ -7,6 +7,7 @@
     <div>
     <span>
         <a href="" @click.stop.prevent="showDivision(rowData,index)" style="color:green">排期</a>&nbsp;
+        <a href="" @click.stop.prevent="move(rowData,index)">移动</a>
         <a href="" @click.stop.prevent="deleteRow(rowData,index)">删除</a>
     </span>
 
@@ -37,6 +38,10 @@
             },
             showDivision(){
                 let params = {type:'showDivision', index:this.index,rowData:this.rowData};
+                this.$emit('on-custom-comp', params)
+            },
+            move(){
+                let params = {type:'move', index:this.index,rowData:this.rowData};
                 this.$emit('on-custom-comp', params)
             }
         }

@@ -31,13 +31,14 @@ window.Vue = require('vue');
 import 'vue-easytable/libs/themes-base/index.css'
 
 import {VTable,VPagination} from 'vue-easytable'
-import { Button, Select,Dialog,Table,TableColumn} from 'element-ui';
+import { Button, Select,Dialog,Table,TableColumn, Tree} from 'element-ui';
 
 Vue.component(Button.name, Button);
 Vue.component(Select.name, Select);
 Vue.component(Dialog.name, Dialog);
 Vue.component(Table.name, Table);
 Vue.component(Table.name, TableColumn);
+Vue.component(Tree.name, Tree);
 
 Vue.component(VTable.name, VTable)
 Vue.component(VPagination.name, VPagination)
@@ -53,8 +54,16 @@ const app = new Vue({
     el: '#app',
     data: function() {
         return {
-            tableData: [],
-            divisionData: [],//弹窗数据
+            projectData:[{
+
+            }],
+            defaultProps: {
+                children: 'children',
+                label: 'label',
+                isLeaf: 'leaf'
+            },
+            tableData: [],//任务数据
+            divisionData: [],//弹窗分工数据
             divisionDataColumns: [
                 {field: 'role', title: '角色',width: 100, titleAlign: 'center',columnAlign:'left'},
                 {field: 'assigned_to', title: '负责人', width: 100,titleAlign: 'center',columnAlign:'left'},
@@ -83,21 +92,24 @@ const app = new Vue({
                 {field: 'tech_reviewer_id', title: '技术评审人', width:100, titleAlign: 'center',columnAlign:'left'},
                 {field: 'tech_review', title: '技术评审结果', width:100, titleAlign: 'center',columnAlign:'left'},
                 {field: 'note', title: '备注', width:200, titleAlign: 'center',columnAlign:'left'},
-                {field: 'custome-adv', title: '操作', width:50, titleAlign: 'center',columnAlign:'center', componentName:TableOperation.name, isResize: true}
+                {field: 'custome-adv', title: '操作', width:80, titleAlign: 'center',columnAlign:'center', componentName:TableOperation.name, isResize: true}
             ]
         }
     },
-    components: {VTable,VPagination, TableOperation, Button, Select, Dialog, Table,TableColumn},
+    components: {VTable,VPagination, TableOperation, Button, Select, Dialog, Table,TableColumn, Tree},
     methods: {
-        request() {
-            this.isLoading = true;
-            fetch(app_url+'/api/missions?page='+this.page+'&pageSize='+this.pageSize).then(response => response.json()).then(
+        request( seasonId = 0) {
+            //this.isLoading = true;
+
+            fetch(app_url+'/api/missions?page='+this.page+'&pageSize='+this.pageSize+'&seasonId='+seasonId).then(response => response.json()).then(
                 json => {
                  this.tableData = json.data.data;
-                 this.totalMissions = json.data.total
+                 this.totalMissions = json.data.total;
                 }
+
             );
         },
+        //删除任务
         requestDel(missionId) {
             fetch(app_url+'/api/missions/'+missionId, {
                 method: 'DELETE'
@@ -108,6 +120,7 @@ const app = new Vue({
                 }
             );
         },
+        // 请求任务分工
         requestMissionDivision(missionId){
             fetch(app_url+'/api/mission/'+missionId+'/divisions').then(response => response.json()).then(
                 json => {
@@ -115,6 +128,17 @@ const app = new Vue({
                     console.log(this.divisionData)
                 }
             )
+        },
+        // 请求项目列表
+        requestProject() {
+            this.isLoading = true;
+          fetch(app_url+ '/api/projects/tree').then(response => response.json()).then(
+              json => {
+                  this.projectData = json.data;
+
+                  console.log(this.projectData)
+              }
+          )
         },
         customCompFunc(params){
             console.log(params);
@@ -148,9 +172,18 @@ const app = new Vue({
         pageSizeChange1(pageSize){
             this.pageSize = pageSize;
             this.request();
+        },
+        handleNodeClick(data) {
+            //如果是最低的节点
+            console.log(data.id)
+            if(true === data.leaf) {
+                this.request(data.id);
+            }
         }
     },
     created(){
+
         this.request();
+        this.requestProject();
     }
 });

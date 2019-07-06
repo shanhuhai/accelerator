@@ -11,9 +11,50 @@ class MissionSeeder extends Seeder
      */
     public function run()
     {
-        //
+
+        //填充项目
+        $project = \App\Project::create([
+            'name'=> '长江日报'
+        ]);
+
+        $season1 = \App\Season::create([
+            'project_id' => $project->id,
+            'name' => '一期'
+        ]);
+        $season2 = \App\Season::create([
+            'project_id' => $project->id,
+            'name' => '二期'
+        ]);
+
+        $project = \App\Project::create([
+            'name'=> '东莞'
+        ]);
+        \App\Season::create([
+            'project_id' => $project->id,
+            'name' => '一期'
+        ]);
+        \App\Season::create([
+            'project_id' => $project->id,
+            'name' => '二期'
+        ]);
+
+        $project = \App\Project::create([
+            'name'=> '赣云'
+        ]);
+        \App\Season::create([
+            'project_id' => $project->id,
+            'name' => '一期'
+        ]);
+        \App\Season::create([
+            'project_id' => $project->id,
+            'name' => '二期'
+        ]);
+
+
+        //填充任务
         for ($i = 0 ; $i< 100; $i++ ) {
             $mission = \App\Mission::create([
+                'season_id'=>$i%2 ==0 ? $season1->id : $season2->id,
                 'title'=>'xxx'.$i,
                 'description'=>'简介'.$i,
                 'review'=> 'yyy'.$i,

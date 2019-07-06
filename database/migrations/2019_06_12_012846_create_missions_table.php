@@ -15,6 +15,7 @@ class CreateMissionsTable extends Migration
     {
         Schema::create('missions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('season_id')->comment('期数id');
             $table->string('title', 255)->comment('任务标题');
             $table->text('description')->comment('任务简介');
 
