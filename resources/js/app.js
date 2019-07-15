@@ -82,17 +82,17 @@ const app = new Vue({
             columns: [
                 {
                   field: 'custome', title: '序号', width:50,titleAlign: 'center', columnAlign: 'center',
-                     type: 'selection'
+                     type: 'selection',isResize: true
                 },
-                {field: 'id', title:'id', width: 60, titleAlign: 'center',columnAlign:'center',isEdit:true},
-                {field: 'title', title: '任务标题', width:100, titleAlign: 'center',columnAlign:'center',isEdit:true},
-                {field: 'description', title: '任务说明', width:100, titleAlign: 'center',columnAlign:'center'},
-                {field: 'reviewer_id', title: '需求评审人', width:100, titleAlign: 'center',columnAlign:'left'},
-                {field: 'reviewer', title: '需求评审结果', width:100, titleAlign: 'center',columnAlign:'left'},
-                {field: 'tech_reviewer_id', title: '技术评审人', width:100, titleAlign: 'center',columnAlign:'left'},
-                {field: 'tech_review', title: '技术评审结果', width:100, titleAlign: 'center',columnAlign:'left'},
-                {field: 'note', title: '备注', width:200, titleAlign: 'center',columnAlign:'left'},
-                {field: 'custome-adv', title: '操作', width:80, titleAlign: 'center',columnAlign:'center', componentName:TableOperation.name, isResize: true}
+                {field: 'id', title:'id', width: 60, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize: true},
+                {field: 'title', title: '任务标题', width:100, titleAlign: 'center',columnAlign:'center',isEdit:true,isResize: true},
+                {field: 'description', title: '任务说明', width:100, titleAlign: 'center',columnAlign:'center',isResize: true},
+                {field: 'reviewer_id', title: '需求评审人', width:50, titleAlign: 'center',columnAlign:'left',isResize: true},
+                {field: 'reviewer', title: '需求评审结果', width:100, titleAlign: 'center',columnAlign:'left',isResize: true},
+                {field: 'tech_reviewer_id', title: '技术评审人', width:50, titleAlign: 'center',columnAlign:'left',isResize: true},
+                {field: 'tech_review', title: '技术评审结果', width:100, titleAlign: 'center',columnAlign:'left',isResize: true},
+                {field: 'note', title: '备注', width:100, titleAlign: 'center',columnAlign:'left',isResize: true},
+                {field: 'custome-adv', title: '操作', width:100, titleAlign: 'center',columnAlign:'center', componentName:TableOperation.name, isResize: true}
             ]
         }
     },
